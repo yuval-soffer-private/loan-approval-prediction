@@ -34,6 +34,25 @@ The notebook's concluding summary reports the following approximate ROC-AUC scor
 
 These figures are taken from the notebook's concluding summary and have not been independently reproduced. Other sections may describe different evaluation settings.
 
+## Key Findings
+
+- **Model performance:** All four models achieved ROC-AUC scores of approximately 0.86–0.88, with the neural network achieving the highest reported score (0.875).
+- **Final model selection:** Random Forest was selected despite the neural network's slightly higher AUC, due to its competitive performance, shorter training time, and greater interpretability.
+- **Feature importance:** Loan amount, applicant income, the engineered loan-to-income ratio, and geographic characteristics were identified as influential predictors.
+
+## Technical Decisions
+
+- **Redundant features:** Examined highly correlated geographic variables and retained representative features to reduce redundancy.
+- **Missing values:** Used imputation and combined available race-related fields to address incomplete records.
+- **Preprocessing:** Standardized numerical features and applied categorical encoding, while limiting high-cardinality variables.
+- **Model optimization:** Used cross-validation, feature selection, and hyperparameter search to compare and refine the models.
+
+## Limitations & Future Improvements
+
+- **Fairness:** Demographic variables such as race and ethnicity raise potential bias concerns and require further fairness evaluation.
+- **Reproducibility:** The notebook includes saved results, but the complete pipeline has not been independently rerun in a fresh environment.
+- **Future work:** Explore probability calibration, model explainability with SHAP or LIME, and additional feature engineering.
+  
 ## Repository Contents
 
 - `loan_approval_analysis.ipynb` - analysis, modeling, visualizations, and results
