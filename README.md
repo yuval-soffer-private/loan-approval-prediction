@@ -1,78 +1,135 @@
 # Loan Approval Prediction | Machine Learning
 
-An academic machine learning project exploring loan approval prediction using a Florida 2013 mortgage application dataset provided as part of a course at Tel Aviv University.
+**End-to-End Machine Learning Project | Tel Aviv University | 2025**
 
 ## Project Overview
 
-This project covers exploratory data analysis, data cleaning, feature engineering, model training, and performance evaluation to predict mortgage loan application outcomes.
+Developed an end-to-end machine learning pipeline to predict mortgage loan approval outcomes using a dataset based on Florida's 2013 Home Mortgage Disclosure Act (HMDA) records.
 
-## Methods
+The project covers the full data science workflow, from exploratory data analysis and preprocessing to feature engineering, model optimization, evaluation, and selection.
 
-- Exploratory data analysis and missing-value handling
-- Feature engineering and categorical encoding
-- Numerical preprocessing and feature selection
-- Model training and comparison
-- Cross-validation and evaluation using classification metrics and ROC-AUC
+**Objective:** Predict whether a mortgage application will be approved (1) or denied (0), while comparing different machine learning approaches and evaluating their practical trade-offs.
 
-## Machine Learning Models
+## Technologies & Methods
 
-- Logistic Regression
-- Decision Tree
-- Random Forest
-- Multi-Layer Perceptron (MLP)
+**Languages & Libraries:** Python, Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn
 
-## Results
+**Machine Learning:** Logistic Regression, Decision Tree, Random Forest, Multi-Layer Perceptron (MLP)
 
-The notebook's concluding summary reports the following approximate ROC-AUC scores:
+**Techniques:** Exploratory Data Analysis, Feature Engineering, One-Hot Encoding, Cross-Validation, Hyperparameter Tuning, Feature Importance, ROC-AUC Analysis
 
-| Model | Reported ROC-AUC |
+## Methodology
+
+### 1. Exploratory Data Analysis & Preprocessing
+
+- Analyzed numerical and categorical features, missing values, class distributions, and correlations.
+- Identified and removed redundant geographic features with strong correlations.
+- Addressed missing and inconsistent values, including consolidating information across multiple race-related fields.
+- Investigated outliers and evaluated their implications before deciding how to handle them.
+- Applied numerical scaling and categorical encoding, restricting high-cardinality features to control dimensionality.
+
+### 2. Feature Engineering
+
+- Created additional predictors, including a loan-to-income ratio and a squared income feature.
+- Evaluated relationships between application characteristics and approval outcomes.
+- Examined potential redundancy and predictive value across features.
+
+### 3. Model Development & Optimization
+
+Trained and compared four classification models:
+
+1. Logistic Regression
+2. Decision Tree
+3. Random Forest
+4. Multi-Layer Perceptron (MLP)
+
+Used cross-validation and hyperparameter optimization with GridSearchCV and RandomizedSearchCV.
+
+Evaluated model performance using ROC-AUC, Accuracy, F1-score, and confusion matrices.
+
+## Model Performance
+
+The following ROC-AUC scores were reported in the final project analysis:
+
+| Model | ROC-AUC |
 |---|---:|
 | Logistic Regression | 0.867 |
 | Decision Tree | 0.860 |
 | Random Forest | 0.873 |
-| MLP Neural Network | 0.875 |
+| Neural Network (MLP) | **0.875** |
 
-These figures are taken from the notebook's concluding summary and have not been independently reproduced. Other sections may describe different evaluation settings.
+Although the neural network achieved the highest reported ROC-AUC, **Random Forest was selected as the final model** based on its competitive predictive performance, highest reported cross-validation F1-score (0.797), faster training, and greater interpretability.
+
+### Generalization & Overfitting
+
+Random Forest achieved:
+
+- **Training Accuracy:** 88.5%
+- **Cross-Validation Accuracy:** 79.5%
+- **Cross-Validation F1:** 0.797
+
+The approximately 9-percentage-point difference between training and cross-validation accuracy suggests some overfitting.
+
+This was identified as an important limitation and a potential area for further optimization.
 
 ## Key Findings
 
-- **Model performance:** All four models achieved ROC-AUC scores of approximately 0.86–0.88, with the neural network achieving the highest reported score (0.875).
-- **Final model selection:** Random Forest was selected despite the neural network's slightly higher AUC, due to its competitive performance, shorter training time, and greater interpretability.
-- **Feature importance:** Loan amount, applicant income, the engineered loan-to-income ratio, and geographic characteristics were identified as influential predictors.
+**1. Model selection requires more than maximizing a single metric.**
 
-## Technical Decisions
+The neural network achieved a slightly higher ROC-AUC, but Random Forest offered a favorable combination of F1-score, computational efficiency, and interpretability.
 
-- **Redundant features:** Examined highly correlated geographic variables and retained representative features to reduce redundancy.
-- **Missing values:** Used imputation and combined available race-related fields to address incomplete records.
-- **Preprocessing:** Standardized numerical features and applied categorical encoding, while limiting high-cardinality variables.
-- **Model optimization:** Used cross-validation, feature selection, and hyperparameter search to compare and refine the models.
+**2. Feature engineering and preprocessing were central to the workflow.**
+
+Handling incomplete records, reducing redundant variables, and constructing additional predictors helped establish a structured modeling pipeline.
+
+**3. Feature importance requires careful interpretation.**
+
+Loan amount, applicant income, loan-to-income ratio, and geographic variables were examined as potentially influential predictors.
+
+An anonymized feature (`A`) also showed particularly high importance in the Random Forest analysis. Because its underlying meaning was not documented, this result requires additional investigation before drawing conclusions about its predictive significance.
+
+**4. Demographic patterns raise fairness considerations.**
+
+Exploratory analysis identified differences in approval outcomes across demographic groups. These observations do not establish causality and highlight the need for additional fairness and bias assessments before any real-world application.
 
 ## Limitations & Future Improvements
 
-- **Fairness:** Demographic variables such as race and ethnicity raise potential bias concerns and require further fairness evaluation.
-- **Reproducibility:** The notebook includes saved results, but the complete pipeline has not been independently rerun in a fresh environment.
-- **Future work:** Explore probability calibration, model explainability with SHAP or LIME, and additional feature engineering.
-  
+- **Overfitting:** Further regularization and model complexity adjustments could improve Random Forest generalization.
+- **Feature transparency:** Investigate anonymized variables and assess potential data leakage.
+- **Fairness:** Evaluate performance across demographic subgroups using appropriate fairness metrics.
+- **Explainability:** Explore SHAP or other explanation techniques for more detailed model interpretation.
+- **Reproducibility:** Validate the full pipeline in a fresh execution environment.
+
 ## Repository Contents
 
-- `loan_approval_analysis.ipynb` - analysis, modeling, visualizations, and results
-- `requirements.txt` - main Python dependencies
+- `loan_approval_analysis.ipynb` - Complete analysis, preprocessing, model development, evaluation, and visualizations.
+- `requirements.txt` - Python dependencies.
+- `README.md` - Project documentation.
 
 ## Dataset
 
-The dataset is derived from Florida's 2013 Home Mortgage Disclosure Act (HMDA) data and was provided by the course instructor. The exact download source and redistribution terms have not been verified, so the original data files are not included.
+The project uses a Florida 2013 mortgage application dataset derived from HMDA data and provided as part of the Introduction to Machine Learning course at Tel Aviv University.
 
-To run the notebook, obtain authorized copies of `train.csv` and `test.csv` and place them in a local `data/` directory.
+The original data files are not included in this repository. Their exact distribution source and redistribution terms have not been independently verified.
+
+To reproduce the analysis, authorized copies of the training and test datasets are required.
 
 ## Running the Project
 
 1. Clone or download this repository.
-2. Install the dependencies using `pip install -r requirements.txt`.
-3. Place `train.csv` and `test.csv` in the `data/` folder.
-4. Open `loan_approval_analysis.ipynb` in Jupyter Notebook.
+2. Install dependencies:
 
-**Note:** The notebook retains historical outputs and some Google Colab-oriented code. It has not been fully validated in a fresh environment.
+   `pip install -r requirements.txt`
+
+3. Place `train.csv` and `test.csv` inside a local `data/` directory.
+4. Open `loan_approval_analysis.ipynb` using Jupyter Notebook or JupyterLab.
+
+**Note:** The notebook contains saved outputs from the original academic project. A complete clean-environment rerun has not yet been verified.
 
 ## Academic Context
 
-Developed as part of an Introduction to Machine Learning course at Tel Aviv University.
+**Course:** Introduction to Machine Learning  
+**Institution:** Tel Aviv University  
+**Year:** 2025
+
+This project was independently developed as part of the course, applying machine learning techniques to a real-world classification problem.
